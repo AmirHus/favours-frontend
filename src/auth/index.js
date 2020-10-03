@@ -10,7 +10,6 @@ const logoutRedirectUri = `${window.location.protocol}//${
   window.location.host}/`
 
 export const login = () => {
-  ls.remove(TOKEN_NAME);
   window.open(
     `${AUTH0.BASE_URL}/authorize?response_type=code&client_id=${AUTH0.CLIENT_ID}&scope=openid%20email%20profile&audience=${AUTH0.AUDIENCE}&redirect_uri=${loginRedirectUri}`,
     '_self'
@@ -18,6 +17,7 @@ export const login = () => {
 };
 
 export const logout = () => {
+  ls.remove(TOKEN_NAME);
   console.log('beng called');
   window.open(
     `${AUTH0.BASE_URL}/v2/logout?client_id=${AUTH0.CLIENT_ID}&returnTo=${logoutRedirectUri}`,

@@ -12,7 +12,7 @@ export default class Login extends React.Component {
   }
 
   getJWToken = async (code) => {
-    const response = await API.post('http://localhost:8080/auth/token', {
+    const response = await API.post('/auth/token', {
       code, redirectUri: loginRedirectUri
     });
     this.setToken(response.data.access_token);

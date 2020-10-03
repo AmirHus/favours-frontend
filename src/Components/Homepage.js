@@ -13,6 +13,10 @@ export default class Homepage extends React.Component {
     logout();
   }
 
+  goToSignUp = () => {
+    this.props.history.push('/signup');
+  }
+
   render() {
     return (
       <div>
@@ -25,8 +29,13 @@ export default class Homepage extends React.Component {
         </Button>
         <Button
           variant="contained"
-          onClick={this.logUserOut}>
-          Logout
+          onClick={this.logUserOut}
+          >Logout
+        </Button>
+        <Button
+          variant="contained"
+          onClick={this.goToSignUp}
+          >Sign Up
         </Button>
       </div>
     )
