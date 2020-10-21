@@ -29,7 +29,8 @@ export default class Login extends React.Component {
       login();
     }
     this.getJWToken(code);
-    this.props.history.push('/');
+    this.props.history.push('/newIndex');
+      localStorage.setItem("isLogin",true);
     return (
       <LinearProgress color={'primary'} ></LinearProgress>
     )

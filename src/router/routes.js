@@ -1,8 +1,10 @@
 import Create from '../Components/Create';
 import CreateOther from '../Components/CreateOther';
-import Homepage from '../Components/Homepage';
+import Index from '../views/HomePage';
 import Login from '../Components/Login';
 import SignUp from '../Components/SignUp';
+import HomeIndex from "../views/Index";
+import NewIndex from "../views/NewIndex";
 
 export const routes = [
   {
@@ -12,6 +14,20 @@ export const routes = [
     exact: false,
     private: false,
   },
+  {
+    path: '/homeIndex',
+    name: 'homepage',
+    component: HomeIndex,
+    exact: false,
+    private: false,
+  },
+    {
+        path: '/newIndex',
+        name: 'homepage',
+        component: NewIndex,
+        exact: false,
+        private: false,
+    },
   {
     path: '/signup',
     name: 'homepage',
@@ -36,14 +52,15 @@ export const routes = [
   {
     path: '/',
     name: 'homepage',
-    component: Homepage,
-    exact: true,
+    component: NewIndex,
+    exact: false,
     private: false,
   },
+
   // {
   //   path: "*",
   //   name: "homapage",
-  //   component: Homepage,
+  //   component: Index,
   //   private: false,
   // }
 ]

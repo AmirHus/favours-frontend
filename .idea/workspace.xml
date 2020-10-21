@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="60772a3b-ba89-442c-9932-c6f6b558e2cb" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1ifGm6iKbOawQLBaYHGxk3WPB6D" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="D:/work/youxian/front/weixin_bds_admin" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="ts.external.directory.path" value="D:\Dsoft\WebStorm_jb51\WebStorm 2019.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\前端\123\123\javascript\favours-frontend-feat-login\favours-frontend-feat-login" />
+      <recent name="D:\前端\123\123\javascript\favours-frontend-feat-login\favours-frontend-feat-login\src\views\HomePage" />
+      <recent name="D:\前端\123\123\javascript\favours-frontend-feat-login\favours-frontend-feat-login\src" />
+      <recent name="D:\前端\123\123\javascript\favours-frontend-feat-login\favours-frontend-feat-login\static" />
+      <recent name="D:\前端\123\123\javascript\favours-frontend-feat-login\favours-frontend-feat-login\public" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\前端\123\123\javascript\favours-frontend-feat-login\favours-frontend-feat-login\src\views\NewIndex" />
+      <recent name="D:\前端\123\123\javascript\favours-frontend-feat-login\favours-frontend-feat-login\src\views\Index" />
+      <recent name="D:\前端\123\123\javascript\favours-frontend-feat-login\favours-frontend-feat-login\build\static\img" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="60772a3b-ba89-442c-9932-c6f6b558e2cb" name="Default Changelist" comment="" />
+      <created>1602291388342</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1602291388342</updated>
+      <workItem from="1602291390255" duration="4815000" />
+      <workItem from="1602313397682" duration="6500000" />
+      <workItem from="1602377383106" duration="30955000" />
+      <workItem from="1602482080819" duration="1963000" />
+      <workItem from="1602644921334" duration="27000" />
+      <workItem from="1602753436896" duration="1043000" />
+      <workItem from="1602809345480" duration="38152000" />
+      <workItem from="1602999345301" duration="11820000" />
+      <workItem from="1603066420802" duration="18792000" />
+      <workItem from="1603109854793" duration="5279000" />
+      <workItem from="1603153228061" duration="11192000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/views/Index/index.js</url>
+          <line>136</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
