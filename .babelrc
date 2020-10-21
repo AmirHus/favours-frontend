@@ -1,0 +1,16 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",{
+      "useBuiltIns": "usage",
+      "targets": {
+        "chrome": "68",
+        "ie": "11",
+        "node": "8.9.3"
+     }
+    }],
+    "@babel/preset-react"
+  ],
+  "plugins": ["@babel/plugin-syntax-dynamic-import"]
+}
+

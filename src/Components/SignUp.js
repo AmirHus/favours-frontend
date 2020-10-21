@@ -15,6 +15,7 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 import { API } from '../utils/axios';
 import { Link } from 'react-router-dom';
+import imgURL  from '../img/homepage.jpg'
 
 const styles = (theme) => ({
   container: {
@@ -23,6 +24,7 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    backgroundImage: "url(" + require("../img/homepage.jpg") + ")"
   },
   card: {
     marginTop: theme.spacing(10),
@@ -95,6 +97,8 @@ class SignUp extends React.Component {
       this.setState({ dialog: true });
       setTimeout(() => {
         this.props.history.push('/login');
+          localStorage.setItem("isLogin",true);
+          // this.props.history.push('/newIndex');
       }, 2000);
     } catch (error) {
       let message;
@@ -108,11 +112,12 @@ class SignUp extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <div display='flex' flex='1' height='100%'>
+      <div display='flex' flex='1' height='100%' backgroundImg={imgURL}>
+        <div>sdfhsdhflhs</div>
         <Container className={classes.container}>
           <Card className={classes.card} raised>
             <CardContent className={classes.cardContent}>
-              <img 
+              <img
                   src='https://i.pinimg.com/originals/4e/e5/77/4ee57739e8b92831035172e78ba8e45b.jpg'
                   alt='logo'
                   width='30%'
@@ -182,3 +187,6 @@ class SignUp extends React.Component {
   }
 }
 export default withStyles(styles, { withTheme: true })(SignUp)
+
+
+
