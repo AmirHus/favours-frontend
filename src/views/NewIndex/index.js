@@ -125,27 +125,23 @@ const ownList = [
     //     key: 'owing',
     // },
     {
-        title: 'created_by',
+        title: 'Created by',
         dataIndex: 'created_by',
         key: 'created_by',
     },
     {
-        title: 'other_party',
+        title: 'Other party',
         dataIndex: 'other_party',
         key: 'other_party',
     },
     {
-        title: 'favour_item',
+        title: 'Favour',
         dataIndex: 'favour_item',
         key: 'favour_item',
     },
+    
     {
-        title: 'repaid',
-        dataIndex: 'repaid',
-        key: 'repaid',
-    },
-    {
-        title: 'no_of_items',
+        title: 'Numbers',
         dataIndex: 'no_of_items',
         key: 'no_of_items',
     },
@@ -180,17 +176,17 @@ const data = [
 
 const boardTable = [
     {
-        title: 'accepted_by_name',
+        title: 'Name',
         dataIndex: 'accepted_by_name',
         key: 'accepted_by_name',
     },
     {
-        title: 'accepted_by_name',
-        dataIndex: 'accepted_by_name',
-        key: 'accepted_by_name',
+        title: 'Email',
+        dataIndex: 'accepted_by_email',
+        key: 'accepted_by_email',
     },
     {
-        title: 'requests_completed',
+        title: 'Completed requests',
         dataIndex: 'requests_completed',
         key: 'requests_completed',
     }
@@ -219,17 +215,17 @@ export default class NewIndex extends React.Component {
 
         this.publistRequire = [
             {
-                title: 'created_by_email',
+                title: 'Creater email',
                 dataIndex: 'created_by_email',
                 key: 'created_by_email',
             },
             {
-                title: 'title',
+                title: 'Title',
                 dataIndex: 'title',
                 key: 'title',
             },
             {
-                title: 'created_by_name',
+                title: 'Creater name',
                 dataIndex: 'created_by_name',
                 key: 'created_by_name',
             },
@@ -238,6 +234,13 @@ export default class NewIndex extends React.Component {
                 key: '',
                 render: (text, record) => (
                     localStorage.getItem("isLogin")?  <div style={{display: 'flex'}}>
+                         <Button
+                            disabled={ls.get(TOKEN_NAME)? false : true}
+                            type="primary"
+                            style={btn}
+                        >
+                            accept
+                        </Button>
                         <Button
                             onClick={()=> {
                                 this.getReward(record.id)
@@ -246,15 +249,9 @@ export default class NewIndex extends React.Component {
                             type="primary"
                             style={btn}
                         >
-                            setReward
+                            Add Reward
                         </Button>
-                        <Button
-                            disabled={ls.get(TOKEN_NAME)? false : true}
-                            type="primary"
-                            style={btn}
-                        >
-                            accept
-                        </Button>
+                       
                     </div>: null
                 ),
             }
@@ -508,7 +505,8 @@ export default class NewIndex extends React.Component {
     // goToSignUp = () => {
     //     this.props.history.push('/signup');
     // }
-
+  
+      
      availablePublic = async () => {
         try {
             const { data } = await API.get('/publicRequest/available');
@@ -572,7 +570,7 @@ export default class NewIndex extends React.Component {
                                    variant="contained"
                                    onClick={this.logUserOut}
                                >
-                                   logUserOut
+                                   Log Out
                                </Button> : null
                            }
 

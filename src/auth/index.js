@@ -14,7 +14,7 @@ export const login = () => {
       `${AUTH0.BASE_URL}/authorize?response_type=code&client_id=${AUTH0.CLIENT_ID}&scope=openid%20email%20profile&audience=${AUTH0.AUDIENCE}&redirect_uri=${loginRedirectUri}`,
       '_self'
   );
-  this.getAuth0Token()
+  getAuth0Token()
 };
 
 export const logout = () => {
