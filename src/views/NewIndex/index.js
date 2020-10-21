@@ -403,9 +403,9 @@ export default class NewIndex extends React.Component {
     }
 
 
-    // goToLoogin = () => {
-    //     this.props.history.push('/login');
-    // }
+     goToLogIn = () => {
+         this.props.history.push('/login');
+     }
 
     goToSignUp = () => {
         this.props.history.push('/signup');
@@ -543,7 +543,15 @@ export default class NewIndex extends React.Component {
                            Favtrack
                            <Button />
                        </Col>
+                      
                        <Col>
+                       {
+                       ls.get(TOKEN_NAME)? null : <Button style={btn}
+                           onClick={this.goToLogIn}
+                           variant="contained"
+                           >Log in
+                             </Button>
+                          }
                            {
                                ls.get(TOKEN_NAME)? null : <Button style={btn}
                                onClick={this.goToSignUp}
@@ -572,7 +580,8 @@ export default class NewIndex extends React.Component {
                    </div>
                    <div  style={topBtn}>
                        <Radio.Group value={this.state.visible} onChange={this.handleVisible}>
-                           <Radio.Button value="2">Favours</Radio.Button>
+                           <Radio.Button value="1">Home</Radio.Button>
+                           <Radio.Button value="2" disabled={ls.get(TOKEN_NAME)? false : true}>Favours</Radio.Button>
                            <Radio.Button value="3">Public Request</Radio.Button>
                        </Radio.Group>
                    </div>
@@ -708,7 +717,7 @@ export default class NewIndex extends React.Component {
                            <InputNumber min={0}/>
                        </Form.Item>
                        <Form.Item>
-                           <Button type="primary"  htmlType="submit">
+                           <Button type="primary"  htmlType="submit" >
                                Submit
                            </Button>
                        </Form.Item>
