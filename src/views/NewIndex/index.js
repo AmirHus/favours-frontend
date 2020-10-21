@@ -116,39 +116,6 @@ const columns = [
     },
 ];
 
-const publistRequire = [
-    {
-        title: 'created_by_email',
-        dataIndex: 'created_by_email',
-        key: 'created_by_email',
-    },
-    {
-        title: 'title',
-        dataIndex: 'title',
-        key: 'title',
-    },
-    {
-        title: 'created_by_name',
-        dataIndex: 'created_by_name',
-        key: 'created_by_name',
-    },
-    {
-        title: 'accept',
-        key: '',
-        render: (text, record) => (
-            localStorage.getItem("isLogin")?  <div>
-                <Button
-                    disabled={ls.get(TOKEN_NAME)? false : true}
-                    type="primary"
-                    style={btn}
-                >
-                    accept
-                </Button>
-            </div>: null
-        ),
-    }
-
-];
 
 
 const ownList = [
@@ -211,6 +178,24 @@ const data = [
 ];
 
 
+const boardTable = [
+    {
+        title: 'accepted_by_name',
+        dataIndex: 'accepted_by_name',
+        key: 'accepted_by_name',
+    },
+    {
+        title: 'accepted_by_name',
+        dataIndex: 'accepted_by_name',
+        key: 'accepted_by_name',
+    },
+    {
+        title: 'requests_completed',
+        dataIndex: 'requests_completed',
+        key: 'requests_completed',
+    }
+];
+
 const { Option } = Select;
 
 export default class NewIndex extends React.Component {
@@ -224,8 +209,57 @@ export default class NewIndex extends React.Component {
             setRequest: 1,
             allPublic: [],
             favours:{},
-            isOwn: '1'
+            isOwn: '1',
+            isShowReward: false,
+            setRewardValue: [],
+            board: [],
+            isNowId: null
         }
+
+
+        this.publistRequire = [
+            {
+                title: 'created_by_email',
+                dataIndex: 'created_by_email',
+                key: 'created_by_email',
+            },
+            {
+                title: 'title',
+                dataIndex: 'title',
+                key: 'title',
+            },
+            {
+                title: 'created_by_name',
+                dataIndex: 'created_by_name',
+                key: 'created_by_name',
+            },
+            {
+                title: 'accept',
+                key: '',
+                render: (text, record) => (
+                    localStorage.getItem("isLogin")?  <div style={{display: 'flex'}}>
+                        <Button
+                            onClick={()=> {
+                                this.getReward(record.id)
+                            }}
+                            disabled={ls.get(TOKEN_NAME)? false : true}
+                            type="primary"
+                            style={btn}
+                        >
+                            setReward
+                        </Button>
+                        <Button
+                            disabled={ls.get(TOKEN_NAME)? false : true}
+                            type="primary"
+                            style={btn}
+                        >
+                            accept
+                        </Button>
+                    </div>: null
+                ),
+            }
+
+        ];
     }
 
     FormSizeDemo = () => {
@@ -237,6 +271,29 @@ export default class NewIndex extends React.Component {
             visibleModel: true
         });
     };
+
+    getReward = async (id) => {
+        //
+        console.log(id)
+        this.setState({
+            isShowReward: true,
+            isNowId: id
+        });
+        // console.log(id)
+        const {data} = await API.get('/publicRequest/' + id + '/reward');
+        this.setState({
+            setRewardValue: data
+        })
+    };
+
+    getBoard = async () => {
+        // console.log(id)
+        const {data} = await API.get('/publicRequest/leaderboard');
+        this.setState({
+            board: data
+        })
+    };
+
 
     hideModal = (values) => {
         this.setState({
@@ -266,12 +323,12 @@ export default class NewIndex extends React.Component {
         try {
             const {data} = await API.post('/publicRequest',params);
         } catch (error) {
-            let message;
-            if (error.response.status === 400) message = `Error: ${error.response.data}`;
-            else message = 'Error: could not process request';
-            this.setState({ dialogMessage: message });
-            this.setState({ dialog: true });
-            this.setState({ spinner: false });
+            // let message;
+            // if (error.response.status === 400) message = `Error: ${error.response.data}`;
+            // else message = 'Error: could not process request';
+            // this.setState({ dialogMessage: message });
+            // this.setState({ dialog: true });
+            // this.setState({ spinner: false });
         }
 
         this.setState({
@@ -283,6 +340,46 @@ export default class NewIndex extends React.Component {
         console.log('Failed:', errorInfo);
         this.setState({
             visibleModel: false
+        });
+    };
+
+
+    onSetReward = async (values) => {
+        console.log(values)
+        this.setState({
+            isShowReward: true
+        });
+
+        let reward = []
+        for(let value in values) {
+            console.log(value)
+            if(value != 'title' && value != 'description' && values[value] != undefined && values[value] != 0) {
+                reward.push({
+                    rewardItem: value,
+                    noOfRewards: values[value]
+                })
+            }
+        }
+        console.log(reward)
+        let params = {
+            "rewards": reward
+        }
+
+        try {
+            const {data} = await API.put('/publicRequest/' + this.state.isNowId + '/reward',params);
+            this.setState({
+                isShowReward: false
+            });
+        } catch (error) {
+        }
+    };
+
+
+
+    onSetRewardFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+        this.setState({
+            isShowReward: false
         });
     };
 
@@ -321,12 +418,12 @@ export default class NewIndex extends React.Component {
                 allPublic: data
             });
         } catch (error) {
-            let message;
-            if (error.response.status === 400) message = `Error: ${error.response.data}`;
-            else message = 'Error: could not process request';
-            this.setState({ dialogMessage: message });
-            this.setState({ dialog: true });
-            this.setState({ spinner: false });
+            // let message;
+            // if (error.response.status === 400) message = `Error: ${error.response.data}`;
+            // else message = 'Error: could not process request';
+            // this.setState({ dialogMessage: message });
+            // this.setState({ dialog: true });
+            // this.setState({ spinner: false });
         }
     }
 
@@ -419,22 +516,20 @@ export default class NewIndex extends React.Component {
                 publicRequire: data
             });
         } catch (error) {
-            let message;
-            if (error.response.status === 400) message = `Error: ${error.response.data}`;
-            else message = 'Error: could not process request';
-            this.setState({ dialogMessage: message });
-            this.setState({ dialog: true });
-            this.setState({ spinner: false });
+            // let message;
+            // if (error.response.status === 400) message = `Error: ${error.response.data}`;
+            // else message = 'Error: could not process request';
+            // this.setState({ dialogMessage: message });
+            // this.setState({ dialog: true });
+            // this.setState({ spinner: false });
         }
     }
 
     componentDidMount() {
-         console.log('1111')
-         console.log(ls.get(TOKEN_NAME))
-         console.log(localStorage.getItem("isLogin"))
        this.availablePublic()
        this.getAllPublic()
         this.getOen()
+        this.getBoard()
     }
 
     render() {
@@ -476,37 +571,10 @@ export default class NewIndex extends React.Component {
                        </Col>
                    </div>
                    <div  style={topBtn}>
-                       <Button
-                           style={{margin: '0 20px'}}
-                           onClick={
-                               () => {
-                               this.setState({
-                                   visible: 2
-                               })
-                               this.getOen()
-                           }
-                       }
-                       >
-                           {/*onClick={this.goToSignUp}*/}
-                            Favours
-                       </Button>
-                       <Button
-                           onClick={() => {
-                               this.setState({
-                                   visible: 3
-                               })
-                           }}
-                           style={btn}
-                       >
-                           Public Request
-                       </Button>
-
-                       <div style={{color: '#32325D', fontSize: 24, padding: '20px 0', fontWeight: 500, textAlign: 'center'}}>
-                           <Radio.Group value={this.state.visible} onChange={this.handleVisible}>
-                               <Radio.Button value="2">Favours</Radio.Button>
-                               <Radio.Button value="3">Public Request</Radio.Button>
-                           </Radio.Group>
-                       </div>
+                       <Radio.Group value={this.state.visible} onChange={this.handleVisible}>
+                           <Radio.Button value="2">Favours</Radio.Button>
+                           <Radio.Button value="3">Public Request</Radio.Button>
+                       </Radio.Group>
                    </div>
 
                     <div gutter={20} style={{padding: '100px 0'}}>
@@ -519,7 +587,8 @@ export default class NewIndex extends React.Component {
                                    Public requests
                                </div>
                                <div>
-                                   <Table columns={columns} dataSource={data} />
+                                   {/*<Table columns={columns} dataSource={data} />*/}
+                                   <Table columns={this.publistRequire} dataSource={this.state.publicRequire} />
                                </div>
                            </div>
                        </Col>
@@ -528,21 +597,8 @@ export default class NewIndex extends React.Component {
                                Leaderboard
                            </div>
                            <div>
-                           <List
-                               bordered
-                               dataSource={[
-                                   'Racing car sprays burning fuel into crowd.',
-                                   'Japanese princess to wed commoner.',
-                                   'Australian walks 100km after outback crash.',
-                                   'Man charged over missing wedding girl.',
-                                   'Los Angeles battles huge wildfires.',
-                               ]}
-                               renderItem={item => (
-                                   <List.Item>
-                                        {item}
-                                   </List.Item>
-                               )}
-                           />
+                               {/*<Table columns={columns} dataSource={data} />*/}
+                               <Table columns={boardTable} dataSource={this.state.board} />
                            </div>
                        </Col>
 
@@ -568,16 +624,17 @@ export default class NewIndex extends React.Component {
                                              <Radio.Button value="default">Accepted request</Radio.Button>
                                          </Radio.Group>
                                      </div>
-                                     <Table columns={publistRequire} dataSource={this.state.publicRequire} />
+                                     <Table columns={this.publistRequire} dataSource={this.state.publicRequire} />
                                  </Col>
                                  <Col>
                                      {
-                                         localStorage.getItem("isLogin")?                                     <Button
+                                             <Button
+                                                 disabled={ls.get(TOKEN_NAME)? false : true}
                                              onClick={this.showModal}
                                              style={{margin: '0 20px'}}
                                          >
                                              Create public request
-                                         </Button>: null
+                                         </Button>
                                      }
 
                                  </Col>
@@ -650,6 +707,68 @@ export default class NewIndex extends React.Component {
                        >
                            <InputNumber min={0}/>
                        </Form.Item>
+                       <Form.Item>
+                           <Button type="primary"  htmlType="submit">
+                               Submit
+                           </Button>
+                       </Form.Item>
+                   </Form>
+               </Modal>
+
+               <Modal
+                   title="Modal"
+                   visible={this.state.isShowReward}
+                   onCancel={this.onSetRewardFailed}
+                   footer={
+                       [] // 设置footer为空，去掉 取消 确定默认按钮
+                   }
+               >
+                   <Form
+                       labelCol={{ span: 4 }}
+                       wrapperCol={{ span: 14 }}
+                       layout="horizontal"
+                       initialValues={{
+                           remember: true,
+                       }}
+                       onFinish={this.onSetReward}
+                       onFinishFailed={this.onSetRewardFailed}
+                   >
+                       {
+                           this.state.setRewardValue.map((item,key) => {
+                               return (<Form.Item key={key}
+                                                  initialValue={item.no_of_rewards}
+                                   name={item.reward_item}
+                                   label={item.reward_item}>
+                                   <InputNumber  min={0}/>
+                               </Form.Item>)
+                           })
+                       }
+                       {/*<Form.Item*/}
+                       {/*    name="tea"*/}
+                       {/*    label="tea">*/}
+                       {/*    <InputNumber min={0}/>*/}
+                       {/*</Form.Item>*/}
+                       {/*<Form.Item*/}
+                       {/*    name="coffee"*/}
+                       {/*    label="coffee">*/}
+                       {/*    <InputNumber min={0}/>*/}
+                       {/*</Form.Item>*/}
+                       {/*<Form.Item*/}
+                       {/*    name="chips"*/}
+                       {/*    label="chips">*/}
+                       {/*    <InputNumber min={0}/>*/}
+                       {/*</Form.Item>*/}
+                       {/*<Form.Item*/}
+                       {/*    name="cupcake"*/}
+                       {/*    label="cupcake">*/}
+                       {/*    <InputNumber min={0}/>*/}
+                       {/*</Form.Item>*/}
+                       {/*<Form.Item*/}
+                       {/*    label="chocolate"*/}
+                       {/*    name="chocolate"*/}
+                       {/*>*/}
+                       {/*    <InputNumber min={0}/>*/}
+                       {/*</Form.Item>*/}
                        <Form.Item>
                            <Button type="primary"  htmlType="submit">
                                Submit
