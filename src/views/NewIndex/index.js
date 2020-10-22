@@ -405,7 +405,7 @@ export default class NewIndex extends React.Component {
     }
 
 
-    goToLoogin = () => {
+    goToLogIn = () => {
         this.props.history.push('/login');
     }
 
