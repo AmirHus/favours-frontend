@@ -33,7 +33,15 @@ export const getAuth0Token = async (code) => {
   });
 };
 
+export const getToken = () => {
+  return ls.get(TOKEN_NAME);
+};
+
+export const clearToken = () => {
+  ls.remove(TOKEN_NAME);
+};
+
 export const isUserSet = () => {
   const token = ls.get(TOKEN_NAME);
   return (!!token);
-}
+};

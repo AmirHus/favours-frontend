@@ -478,6 +478,9 @@ export default class NewIndex extends React.Component {
         // }
     }
 
+    handleCreateFavour = (e) => {
+        this.props.history.push('/create');
+    }
 
     handleRequest = e => {
         this.setState({ setRequest: e.target.value });
@@ -620,6 +623,9 @@ export default class NewIndex extends React.Component {
                                                </Radio.Group>
                                            </div>
                                            <Table columns={ownList} dataSource={this.state.isOwn == '1' ? this.state.favours.owed :this.state.favours.owing} />
+                               </Col>
+                               <Col>
+                                <Button onClick={this.handleCreateFavour}>Create Favour</Button>
                                </Col>
                            </Row>
                                  :

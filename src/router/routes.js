@@ -1,5 +1,4 @@
-import Create from '../Components/Create';
-import CreateOther from '../Components/CreateOther';
+import CreateFavour from '../Components/CreateFavour';
 import Index from '../views/HomePage';
 import Login from '../Components/Login';
 import SignUp from '../Components/SignUp';
@@ -21,13 +20,13 @@ export const routes = [
     exact: false,
     private: false,
   },
-    {
-        path: '/newIndex',
-        name: 'homepage',
-        component: NewIndex,
-        exact: false,
-        private: false,
-    },
+  {
+      path: '/newIndex',
+      name: 'homepage',
+      component: NewIndex,
+      exact: false,
+      private: false,
+  },
   {
     path: '/signup',
     name: 'homepage',
@@ -38,14 +37,7 @@ export const routes = [
   {
     path: '/create',
     name: 'Create a favour',
-    component: Create,
-    exact: false,
-    private: true,
-  },
-  {
-    path: '/createOther',
-    name: 'Create other owes me',
-    component: CreateOther,
+    component: CreateFavour,
     exact: false,
     private: true,
   },
