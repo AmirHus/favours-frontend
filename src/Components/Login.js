@@ -7,6 +7,18 @@ import { TOKEN_NAME } from '../config';
 
 export default class Login extends React.Component {
 
+  componentDidMount() {
+    const query = this.useQuery();
+    const code = query.get('code');
+    if (!code) {
+      login();
+    } else {
+      this.getJWToken(code);
+      localStorage.setItem("isLogin",true);
+      this.props.history.push('/newIndex');
+    }
+  }
+
   useQuery = () => {
     return new URLSearchParams(this.props.location.search);
   }
@@ -23,14 +35,6 @@ export default class Login extends React.Component {
   }
 
   render() {
-    const query = this.useQuery();
-    const code = query.get('code');
-    if (!code) {
-      login();
-    }
-    this.getJWToken(code);
-    this.props.history.push('/newIndex');
-      localStorage.setItem("isLogin",true);
     return (
       <LinearProgress color={'primary'} ></LinearProgress>
     )

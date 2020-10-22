@@ -52,7 +52,10 @@ const styles = (theme) => ({
   button: {
     fontWeight: 500,
     minWidth: '90px',
-  }
+  },
+  textfield: {
+    textAlign: 'left',
+  },
 });
 class SignUp extends React.Component {
   constructor(props) {
@@ -68,24 +71,29 @@ class SignUp extends React.Component {
       dialogMessage: '',
     };
   }
+
   handleName = (event) => {
     const user = { ...this.state.user }
     user.name = event.target.value;
     this.setState({ user })
   }
+
   handleEmail = (event) => {
     const user = { ...this.state.user }
     user.email = event.target.value;
     this.setState({ user })
   }
+
   handlePassword = (event) => {
     const user = { ...this.state.user }
     user.password = event.target.value;
     this.setState({ user })
   }
+
   handleCloseDialog = () => {
     this.setState({ dialog: false });
   }
+
   handleSubmit = async () => {
     this.setState({ spinner: true });
     try {
@@ -109,6 +117,7 @@ class SignUp extends React.Component {
       this.setState({ spinner: false });
     }
   }
+
   render() {
     const { classes } = this.props;
     return (
@@ -128,6 +137,7 @@ class SignUp extends React.Component {
                 <Grid className={classes.grid} container spacing={2} >
                   <Grid item xs={12}>
                     <TextField
+                      className={classes.textfield}
                       value={this.state.user.name}
                       onChange={this.handleName}
                       name="name"
@@ -141,6 +151,7 @@ class SignUp extends React.Component {
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
+                      className={classes.textfield}
                       value={this.state.user.email}
                       onChange={this.handleEmail}
                       variant="outlined"
@@ -153,6 +164,7 @@ class SignUp extends React.Component {
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
+                      className={classes.textfield}
                       value={this.state.user.password}
                       onChange={this.handlePassword}
                       variant="outlined"
