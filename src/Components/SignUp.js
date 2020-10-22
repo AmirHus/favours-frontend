@@ -122,7 +122,7 @@ class SignUp extends React.Component {
     const { classes } = this.props;
     return (
       <div display='flex' flex='1' height='100%' backgroundImg={imgURL}>
-        <div>sdfhsdhflhs</div>
+        <div></div>
         <Container className={classes.container}>
           <Card className={classes.card} raised>
             <CardContent className={classes.cardContent}>
