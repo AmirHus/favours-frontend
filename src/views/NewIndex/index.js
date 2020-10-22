@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import { Link } from "react-router-dom";
 // import { logout } from '../../auth';
-import {Form, InputNumber, Table,  Select,
+import {Form, InputNumber,message,  Table,  Select,
     Input, Switch, List, Row, Col, Button, Modal, Radio } from "antd";
 import {API} from "../../utils/axios";
 import {loginRedirectUri, logout} from "../../auth";
@@ -125,23 +125,27 @@ const ownList = [
     //     key: 'owing',
     // },
     {
-        title: 'Created by',
+        title: 'created_by',
         dataIndex: 'created_by',
         key: 'created_by',
     },
     {
-        title: 'Other party',
+        title: 'other_party',
         dataIndex: 'other_party',
         key: 'other_party',
     },
     {
-        title: 'Favour',
+        title: 'favour_item',
         dataIndex: 'favour_item',
         key: 'favour_item',
     },
-    
     {
-        title: 'Numbers',
+        title: 'repaid',
+        dataIndex: 'repaid',
+        key: 'repaid',
+    },
+    {
+        title: 'no_of_items',
         dataIndex: 'no_of_items',
         key: 'no_of_items',
     },
@@ -176,17 +180,17 @@ const data = [
 
 const boardTable = [
     {
-        title: 'Name',
+        title: 'accepted_by_name',
         dataIndex: 'accepted_by_name',
         key: 'accepted_by_name',
     },
     {
-        title: 'Email',
-        dataIndex: 'accepted_by_email',
-        key: 'accepted_by_email',
+        title: 'accepted_by_name',
+        dataIndex: 'accepted_by_name',
+        key: 'accepted_by_name',
     },
     {
-        title: 'Completed requests',
+        title: 'requests_completed',
         dataIndex: 'requests_completed',
         key: 'requests_completed',
     }
@@ -215,17 +219,17 @@ export default class NewIndex extends React.Component {
 
         this.publistRequire = [
             {
-                title: 'Creater email',
+                title: 'created_by_email',
                 dataIndex: 'created_by_email',
                 key: 'created_by_email',
             },
             {
-                title: 'Title',
+                title: 'title',
                 dataIndex: 'title',
                 key: 'title',
             },
             {
-                title: 'Creater name',
+                title: 'created_by_name',
                 dataIndex: 'created_by_name',
                 key: 'created_by_name',
             },
@@ -234,13 +238,6 @@ export default class NewIndex extends React.Component {
                 key: '',
                 render: (text, record) => (
                     localStorage.getItem("isLogin")?  <div style={{display: 'flex'}}>
-                         <Button
-                            disabled={ls.get(TOKEN_NAME)? false : true}
-                            type="primary"
-                            style={btn}
-                        >
-                            accept
-                        </Button>
                         <Button
                             onClick={()=> {
                                 this.getReward(record.id)
@@ -249,9 +246,18 @@ export default class NewIndex extends React.Component {
                             type="primary"
                             style={btn}
                         >
-                            Add Reward
+                            setReward
                         </Button>
-                       
+                        <Button
+                                onClick={()=> {
+                                    this.accept(record.id)
+                                }}
+                            disabled={ls.get(TOKEN_NAME)? false : true}
+                            type="primary"
+                            style={btn}
+                        >
+                            accept
+                        </Button>
                     </div>: null
                 ),
             }
@@ -282,6 +288,12 @@ export default class NewIndex extends React.Component {
             setRewardValue: data
         })
     };
+
+    accept = async (id) => {
+        // console.log(id)
+        const {data} = await API.put('/publicRequest/' + id + '/accept');
+        message.info('accept success');
+    }
 
     getBoard = async () => {
         // console.log(id)
@@ -367,6 +379,7 @@ export default class NewIndex extends React.Component {
             this.setState({
                 isShowReward: false
             });
+            message.info('success');
         } catch (error) {
         }
     };
@@ -400,9 +413,9 @@ export default class NewIndex extends React.Component {
     }
 
 
-     goToLogIn = () => {
-         this.props.history.push('/login');
-     }
+    goToLoogin = () => {
+        this.props.history.push('/login');
+    }
 
     goToSignUp = () => {
         this.props.history.push('/signup');
@@ -496,6 +509,8 @@ export default class NewIndex extends React.Component {
         console.log(e.target.value)
         this.setState({ visible: e.target.value.slice(0) });
     }
+
+
     //
     // goToLogin = () => {
     //     this.props.history.push('/homeIndex');
@@ -508,8 +523,7 @@ export default class NewIndex extends React.Component {
     // goToSignUp = () => {
     //     this.props.history.push('/signup');
     // }
-  
-      
+
      availablePublic = async () => {
         try {
             const { data } = await API.get('/publicRequest/available');
@@ -544,14 +558,14 @@ export default class NewIndex extends React.Component {
                            Favtrack
                            <Button />
                        </Col>
-                      
+
                        <Col>
-                       {
-                       ls.get(TOKEN_NAME)? null : <Button style={btn}
-                           onClick={this.goToLogIn}
-                           variant="contained"
-                           >Log in
-                             </Button>
+                           {
+                            ls.get(TOKEN_NAME)? null : <Button style={btn}
+                                onClick={this.goToLogIn}
+                                variant="contained"
+                                >Log in
+                                </Button>
                           }
                            {
                                ls.get(TOKEN_NAME)? null : <Button style={btn}
@@ -581,9 +595,9 @@ export default class NewIndex extends React.Component {
                    </div>
                    <div  style={topBtn}>
                        <Radio.Group value={this.state.visible} onChange={this.handleVisible}>
-                           <Radio.Button value="1">Home</Radio.Button>
-                           <Radio.Button value="2" disabled={ls.get(TOKEN_NAME)? false : true}>Favours</Radio.Button>
-                           <Radio.Button value="3">Public Request</Radio.Button>
+                        <Radio.Button value="1">Home</Radio.Button>
+                        <Radio.Button value="2" disabled={ls.get(TOKEN_NAME)? false : true}>Favours</Radio.Button>
+                        <Radio.Button value="3">Public Request</Radio.Button>
                        </Radio.Group>
                    </div>
 
@@ -721,7 +735,7 @@ export default class NewIndex extends React.Component {
                            <InputNumber min={0}/>
                        </Form.Item>
                        <Form.Item>
-                           <Button type="primary"  htmlType="submit" >
+                           <Button type="primary"  htmlType="submit">
                                Submit
                            </Button>
                        </Form.Item>
@@ -732,6 +746,7 @@ export default class NewIndex extends React.Component {
                    title="Modal"
                    visible={this.state.isShowReward}
                    onCancel={this.onSetRewardFailed}
+                   destroyOnClose
                    footer={
                        [] // 设置footer为空，去掉 取消 确定默认按钮
                    }
