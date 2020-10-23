@@ -24,7 +24,7 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundImage: "url(" + require("../img/homepage.jpg") + ")"
+    
   },
   card: {
     marginTop: theme.spacing(10),
@@ -122,15 +122,15 @@ class SignUp extends React.Component {
     const { classes } = this.props;
     return (
       <div display='flex' flex='1' height='100%' backgroundImg={imgURL}>
-        <div>sdfhsdhflhs</div>
+        <div></div>
         <Container className={classes.container}>
           <Card className={classes.card} raised>
             <CardContent className={classes.cardContent}>
-              <img
+            <img
                   src='https://i.pinimg.com/originals/4e/e5/77/4ee57739e8b92831035172e78ba8e45b.jpg'
                   alt='logo'
                   width='30%'
-                  height='30%'/>
+                  height='30%'/>  
             </CardContent>
             <CardContent>
               <form className={classes.form}>

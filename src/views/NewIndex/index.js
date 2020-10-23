@@ -125,35 +125,26 @@ const ownList = [
     //     key: 'owing',
     // },
     {
-        title: 'created_by',
+        title: 'Created by',
         dataIndex: 'created_by',
         key: 'created_by',
     },
     {
-        title: 'other_party',
+        title: 'Other party',
         dataIndex: 'other_party',
         key: 'other_party',
     },
     {
-        title: 'favour_item',
+        title: 'Favor',
         dataIndex: 'favour_item',
         key: 'favour_item',
     },
     {
-        title: 'repaid',
-        dataIndex: 'repaid',
-        key: 'repaid',
-    },
-    {
-        title: 'no_of_items',
+        title: 'Numbers',
         dataIndex: 'no_of_items',
         key: 'no_of_items',
     },
-    {
-        title: 'proof',
-        dataIndex: 'proof',
-        key: 'proof',
-    }
+   
 ];
 
 const data = [
@@ -180,17 +171,17 @@ const data = [
 
 const boardTable = [
     {
-        title: 'accepted_by_name',
+        title: 'Name',
         dataIndex: 'accepted_by_name',
         key: 'accepted_by_name',
     },
     {
-        title: 'accepted_by_name',
-        dataIndex: 'accepted_by_name',
+        title: 'Email',
+        dataIndex: 'accepted_by_email',
         key: 'accepted_by_name',
     },
     {
-        title: 'requests_completed',
+        title: 'Completed requests',
         dataIndex: 'requests_completed',
         key: 'requests_completed',
     }
@@ -219,36 +210,26 @@ export default class NewIndex extends React.Component {
 
         this.publistRequire = [
             {
-                title: 'created_by_email',
+                title: 'Email',
                 dataIndex: 'created_by_email',
                 key: 'created_by_email',
             },
             {
-                title: 'title',
+                title: 'Title',
                 dataIndex: 'title',
                 key: 'title',
             },
             {
-                title: 'created_by_name',
+                title: 'Name',
                 dataIndex: 'created_by_name',
                 key: 'created_by_name',
             },
             {
-                title: 'accept',
+                title: 'Accept',
                 key: '',
                 render: (text, record) => (
                     localStorage.getItem("isLogin")?  <div style={{display: 'flex'}}>
-                        <Button
-                            onClick={()=> {
-                                this.getReward(record.id)
-                            }}
-                            disabled={ls.get(TOKEN_NAME)? false : true}
-                            type="primary"
-                            style={btn}
-                        >
-                            setReward
-                        </Button>
-                        <Button
+                         <Button
                                 onClick={()=> {
                                     this.accept(record.id)
                                 }}
@@ -258,6 +239,30 @@ export default class NewIndex extends React.Component {
                         >
                             accept
                         </Button>
+                        <Button
+                            onClick={()=> {
+                                this.getReward(record.id)
+                            }}
+                            disabled={ls.get(TOKEN_NAME)? false : true}
+                            type="primary"
+                            style={btn}
+                        >
+                            Add Reward
+                        </Button>
+                        <Button
+                            onClick={()=> {                
+                                console.log(record)       
+                                this.showView(record)
+
+                            //    alert( 'Description: ' + record.description,'Rewards: ')
+                            }}
+                            disabled={ls.get(TOKEN_NAME)? false : true}
+                            type="primary"
+                            style={btn}
+                        >
+                            View
+                        </Button>
+                       
                     </div>: null
                 ),
             }
@@ -273,6 +278,33 @@ export default class NewIndex extends React.Component {
         this.setState({
             visibleModel: true
         });
+    };
+
+    showView = async (record) => {
+        //
+        console.log(record.id)
+        // this.setState({
+        //     isShowReward: true,
+        //     isNowId: record.id
+        // });
+        // console.log(id)
+        const {data} = await API.get('/publicRequest/' + record.id + '/reward');
+        console.log(data,"data");
+        // this.setState({
+        //     setRewardValue: data
+        // })
+        const msg = data[0];
+        console.log(msg,"???")
+        const rewardList = data.map(item=> {
+            return 'Rewards: '+item.reward_item+',Quantity: '+item.no_of_rewards
+        })
+        console.log(rewardList);
+        const alertMsg = 'Description: ' + record.description+'   '+rewardList.join("。");
+
+        // const alertMsg = 'Description: ' + record.description+',Rewards: '+msg.reward_item+',Quantity: '+msg.no_of_rewards;
+        console.log(alertMsg,"alertMsg")
+      
+        alert(alertMsg)
     };
 
     getReward = async (id) => {
@@ -396,8 +428,11 @@ export default class NewIndex extends React.Component {
     getData = async () => {
     // , {owing:false, name:'tian', favourItme: 'coffee'}
         try {
+        
             const { data } = await API.get('/favour');
-            console.log(data)
+            this.setState({
+                favours: data.favours
+            })
         } catch (error) {
             // let message;
             // if (error.response.status === 400) message = `Error: ${error.response.data}`;
@@ -413,7 +448,7 @@ export default class NewIndex extends React.Component {
     }
 
 
-    goToLoogin = () => {
+    goToLogIn = () => {
         this.props.history.push('/login');
     }
 
@@ -422,8 +457,10 @@ export default class NewIndex extends React.Component {
     }
 
     getAllPublic = async () => {
+        
         try {
             const {data} = await API.get('/publicRequest');
+            console.log(data)
             this.setState({
                 allPublic: data
             });
@@ -437,59 +474,59 @@ export default class NewIndex extends React.Component {
         }
     }
 
-    getOen = async () => {
-        this.setState({
-            favours: {
-                "owed": [
-                    {
-                        "owing": false,
-                        "id": 29,
-                        "created_by": "auth0",
-                        "other_party": "autho",
-                        "favour_item": "tea",
-                        "repaid": false,
-                        "no_of_items": 2,
-                        "proof": null
-                    },
-                    {
-                        "owing": false,
-                        "id": 30,
-                        "created_by": "auth0",
-                        "other_party": "autho",
-                        "favour_item": "tea",
-                        "repaid": false,
-                        "no_of_items": 2,
-                        "proof": "favour-poor/01EMFSFS"
-                    }
-                ],
-                "owing": [
-                    {
-                        "owing": false,
-                        "id": 31,
-                        "created_by": "auth0",
-                        "other_party": "autho",
-                        "favour_item": "tea",
-                        "repaid": false,
-                        "no_of_items": 3,
-                        "proof": "favour-poor/01EMFSFSS"
-                    }
-                ]
-            }
-        })
-        // try {
-        //     const {data} = await API.get('/publicRequest');
-        //     this.setState({
-        //         allPublic: data
-        //     });
-        // } catch (error) {
-        //     let message;
-        //     if (error.response.status === 400) message = `Error: ${error.response.data}`;
-        //     else message = 'Error: could not process request';
-        //     this.setState({ dialogMessage: message });
-        //     this.setState({ dialog: true });
-        //     this.setState({ spinner: false });
-        // }
-    }
+    // getOen = async () => {
+    //     this.setState({
+    //         favours: {
+    //             "owed": [
+    //                 {
+    //                     "owing": false,
+    //                     "id": 29,
+    //                     "created_by": "auth0",
+    //                     "other_party": "autho",
+    //                     "favour_item": "tea",
+    //                     "repaid": false,
+    //                     "no_of_items": 2,
+    //                     "proof": null
+    //                 },
+    //                 {
+    //                     "owing": false,
+    //                     "id": 30,
+    //                     "created_by": "auth0",
+    //                     "other_party": "autho",
+    //                     "favour_item": "tea",
+    //                     "repaid": false,
+    //                     "no_of_items": 2,
+    //                     "proof": "favour-poor/01EMFSFS"
+    //                 }
+    //             ],
+    //             "owing": [
+    //                 {
+    //                     "owing": false,
+    //                     "id": 31,
+    //                     "created_by": "auth0",
+    //                     "other_party": "autho",
+    //                     "favour_item": "tea",
+    //                     "repaid": false,
+    //                     "no_of_items": 3,
+    //                     "proof": "favour-poor/01EMFSFSS"
+    //                 }
+    //             ]
+    //         }
+    //     })
+    //     // try {
+    //     //     const {data} = await API.get('/publicRequest');
+    //     //     this.setState({
+    //     //         allPublic: data
+    //     //     });
+    //     // } catch (error) {
+    //     //     let message;
+    //     //     if (error.response.status === 400) message = `Error: ${error.response.data}`;
+    //     //     else message = 'Error: could not process request';
+    //     //     this.setState({ dialogMessage: message });
+    //     //     this.setState({ dialog: true });
+    //     //     this.setState({ spinner: false });
+    //     // }
+    // }
 
     handleCreateFavour = (e) => {
         this.props.history.push('/create');
@@ -542,9 +579,10 @@ export default class NewIndex extends React.Component {
 
     componentDidMount() {
        this.availablePublic()
-       this.getAllPublic()
-        this.getOen()
+    //    this.getAllPublic()
+        // this.getOen()
         this.getBoard()
+        this.getData()
     }
 
     render() {
@@ -632,8 +670,8 @@ export default class NewIndex extends React.Component {
                                <Col  offset={7} style={{boxShadow: '1px 1px 20px rgba(0, 0, 0, 0.4)', borderRadius: 8}}>
                                            <div style={{color: '#32325D', fontSize: 24, padding: '20px 0', fontWeight: 500, textAlign: 'center'}}>
                                                <Radio.Group value={this.state.isOwn} onChange={this.handleOwn}>
-                                                   <Radio.Button value="1">I owe</Radio.Button>
-                                                   <Radio.Button value="2">others owe me</Radio.Button>
+                                                   <Radio.Button value="1">others owe me</Radio.Button>
+                                                   <Radio.Button value="2">I owe</Radio.Button>
                                                </Radio.Group>
                                            </div>
                                            <Table columns={ownList} dataSource={this.state.isOwn == '1' ? this.state.favours.owed :this.state.favours.owing} />
@@ -764,7 +802,7 @@ export default class NewIndex extends React.Component {
                        {
                            this.state.setRewardValue.map((item,key) => {
                                return (<Form.Item key={key}
-                                                  initialValue={item.no_of_rewards}
+                                                  initialValue={0}
                                    name={item.reward_item}
                                    label={item.reward_item}>
                                    <InputNumber  min={0}/>
