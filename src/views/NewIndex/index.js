@@ -250,8 +250,11 @@ export default class NewIndex extends React.Component {
                             Add Reward
                         </Button>
                         <Button
-                            onClick={()=> {                               
-                               alert( 'Description: ' + record.description)
+                            onClick={()=> {                
+                                console.log(record)       
+                                this.showView(record)
+
+                            //    alert( 'Description: ' + record.description,'Rewards: ')
                             }}
                             disabled={ls.get(TOKEN_NAME)? false : true}
                             type="primary"
@@ -275,6 +278,33 @@ export default class NewIndex extends React.Component {
         this.setState({
             visibleModel: true
         });
+    };
+
+    showView = async (record) => {
+        //
+        console.log(record.id)
+        // this.setState({
+        //     isShowReward: true,
+        //     isNowId: record.id
+        // });
+        // console.log(id)
+        const {data} = await API.get('/publicRequest/' + record.id + '/reward');
+        console.log(data,"data");
+        // this.setState({
+        //     setRewardValue: data
+        // })
+        const msg = data[0];
+        console.log(msg,"???")
+        const rewardList = data.map(item=> {
+            return 'Rewards: '+item.reward_item+',Quantity: '+item.no_of_rewards
+        })
+        console.log(rewardList);
+        const alertMsg = 'Description: ' + record.description+'   '+rewardList.join("。");
+
+        // const alertMsg = 'Description: ' + record.description+',Rewards: '+msg.reward_item+',Quantity: '+msg.no_of_rewards;
+        console.log(alertMsg,"alertMsg")
+      
+        alert(alertMsg)
     };
 
     getReward = async (id) => {
