@@ -9,10 +9,10 @@ import {API} from "../utils/axios";
 
 import FormModal from "./createPublicRequestModal"
 
-// 引入PublicRequest内容组件
+// import request table
 import PublicRequestTable from '../Components/publicRequestTable';
 
-// 表格数据
+
 
 const btn = {
     marginRight: '50px'
@@ -178,7 +178,7 @@ class Favours extends Component{
 				
 					</Col>
 				</Row>
-				{/*模态框*/}
+				{/**/}
                 <FormModal show={this.state.visibleModel} />
 
 			</div>

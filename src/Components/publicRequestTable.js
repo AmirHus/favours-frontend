@@ -9,10 +9,10 @@ import * as ls from "local-storage";
 import {TOKEN_NAME} from "../config";
 import {API} from "../utils/axios";
 
-// 引入组件
+// import modal
 import FormModal from "./RewardFormModal"
 
-// 样式
+// style
 const btn = {
     marginRight: '50px'
 }
