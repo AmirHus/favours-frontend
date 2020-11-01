@@ -224,8 +224,8 @@ class CreateFavour extends React.Component{
                       id="favour-select"
                       value={this.state.userInputs.favour}
                       onChange={this.favorChange}>
-                      {favours.map((favour) => 
-                        <MenuItem key={favour} value={favour}>{favour}</MenuItem>
+                      {favours.map((favour,index) => 
+                        <MenuItem key={index} value={favour}>{favour}</MenuItem>
                       )}
                     </Select>
                   </FormControl>

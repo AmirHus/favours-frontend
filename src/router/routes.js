@@ -1,9 +1,7 @@
 import CreateFavour from '../Components/CreateFavour';
-import Index from '../views/HomePage';
 import Login from '../Components/Login';
 import SignUp from '../Components/SignUp';
-import HomeIndex from "../views/Index";
-import NewIndex from "../views/NewIndex";
+import NewIndex from "../views/NewIndex.js";
 
 export const routes = [
   {
@@ -12,20 +10,6 @@ export const routes = [
     component: Login,
     exact: false,
     private: false,
-  },
-  {
-    path: '/homeIndex',
-    name: 'homepage',
-    component: HomeIndex,
-    exact: false,
-    private: false,
-  },
-  {
-      path: '/newIndex',
-      name: 'homepage',
-      component: NewIndex,
-      exact: false,
-      private: false,
   },
   {
     path: '/signup',
@@ -48,12 +32,4 @@ export const routes = [
     exact: false,
     private: false,
   },
-
-
-  // {
-  //   path: "*",
-  //   name: "homapage",
-  //   component: Index,
-  //   private: false,
-  // }
 ]
