@@ -59,7 +59,7 @@ class FormModal extends Component{
 	    }
 	};
 	
-    //props发生变化时触发
+    //implement when props changed
     componentWillReceiveProps(props) {
         
         this.setState({ isShowReward: props.show })
