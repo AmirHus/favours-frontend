@@ -1,10 +1,5 @@
-
-
-
-
 import React, { Component } from 'react';
-import {Form, InputNumber,message,  Table,  Select,
-    Input, Switch, List, Row, Col, Button, Modal, Radio } from "antd";
+import { message,  Table, Button } from "antd";
 import * as ls from "local-storage";
 import {TOKEN_NAME} from "../config";
 import {API} from "../utils/axios";

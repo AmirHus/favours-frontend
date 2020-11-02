@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import {Form, InputNumber,message,  Table,  Select,
-    Input, Switch, List, Row, Col, Button, Modal, Radio } from "antd";
+import { Form, InputNumber,message, Button, Modal } from "antd";
 import {API} from "../utils/axios";
-
-
-
 
 class FormModal extends Component{
     

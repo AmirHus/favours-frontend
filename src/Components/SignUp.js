@@ -17,6 +17,7 @@ import { API } from '../utils/axios';
 import { Link } from 'react-router-dom';
 import imgURL  from '../img/homepage.jpg'
 
+// styling
 const styles = (theme) => ({
   container: {
     width: '100%',
@@ -57,6 +58,7 @@ const styles = (theme) => ({
     textAlign: 'left',
   },
 });
+
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -72,28 +74,33 @@ class SignUp extends React.Component {
     };
   }
 
+  // handles when the user enters the name in the textfield
   handleName = (event) => {
     const user = { ...this.state.user }
     user.name = event.target.value;
     this.setState({ user })
   }
 
+  // handles when the user enters the email in the textfield
   handleEmail = (event) => {
     const user = { ...this.state.user }
     user.email = event.target.value;
     this.setState({ user })
   }
 
+  // handles when the user enters the password in the textfield
   handlePassword = (event) => {
     const user = { ...this.state.user }
     user.password = event.target.value;
     this.setState({ user })
   }
 
+  // removes the dialogue box
   handleCloseDialog = () => {
     this.setState({ dialog: false });
   }
 
+  // handles when the submit button is clicked
   handleSubmit = async () => {
     this.setState({ spinner: true });
     try {
@@ -103,13 +110,14 @@ class SignUp extends React.Component {
       this.setState({ spinner: false });
       this.setState({ dialogMessage: 'User successfully created' });
       this.setState({ dialog: true });
+      // show the dialogue box for 2 seconds
       setTimeout(() => {
         this.props.history.push('/login');
           localStorage.setItem("isLogin",true);
-          // this.props.history.push('/newIndex');
       }, 2000);
     } catch (error) {
       let message;
+      // show the error message if it's a 400
       if (error.response.status === 400) message = `Error: ${error.response.data}`;
       else message = 'Error: could not process request';
       this.setState({ dialogMessage: message });

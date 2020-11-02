@@ -26,6 +26,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 const favours = ['coffee', 'chips', 'chocolate', 'tea', 'cupcake'];
 
+// styling
 const styles = (theme) => ({
   container: {
     width: '50%',
@@ -83,6 +84,7 @@ class CreateFavour extends React.Component{
       this.getUsers();
     }
 
+    // loads the users from the server
     getUsers = async () => {
       if (!isUserSet()) {
         this.props.history.push('/');
@@ -97,6 +99,7 @@ class CreateFavour extends React.Component{
       }      
     }
 
+    // updates the user input when the radio button is clicked
     radioButtonChange = (event) => {
       const userInputs = {...this.state.userInputs};
       userInputs.owing = event.target.value;
@@ -108,40 +111,48 @@ class CreateFavour extends React.Component{
       this.setState({userInputs});
     }
 
+    // handles the change in the user drop down
     userChange = (event) => {
       const userInputs = {...this.state.userInputs};
       userInputs.userId = event.target.value;
       this.setState({userInputs});
     }
 
+    // handles the change in the favour drop down
     favorChange = (event) => {
       const userInputs = {...this.state.userInputs};
       userInputs.favour = event.target.value;
       this.setState({userInputs});
     }
 
+    // gnales the change in the amount textfield
     amountChange = (event) => {
       const userInputs = {...this.state.userInputs};
       userInputs.amount = event.target.value;
       this.setState({userInputs});
     }
 
+    // handles file upload
     fileUpload = (event) => {
       const userInputs = {...this.state.userInputs};
       userInputs.fileSelected = true;
       this.setState({userInputs});
     }
 
+    // pushes the user to the main page after creating the favour
     handleCloseDialog = () => {
       this.setState({ dialog: false });
       this.props.history.push('/');
     }
 
+    // handles the go back button click
     handleGoBack = () => {
       this.props.history.push('/');
     }
 
+    // handles the submit button click
     handleSubmit = async (event) => {
+      // create the formdata to send
       const formdata = new FormData();
       this.setState({spinner: true});
       try {   

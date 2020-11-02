@@ -1,8 +1,7 @@
 
 import React, { Component } from 'react';
 import {
-    Form, InputNumber, message, Table, Select,
-    Input, Switch, List, Row, Col, Button, Modal, Radio
+    Table, Row, Col, Button, Radio
 } from "antd";
 
 import {API} from "../utils/axios";
